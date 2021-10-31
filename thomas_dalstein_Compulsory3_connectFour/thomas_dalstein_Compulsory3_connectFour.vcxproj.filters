@@ -23,5 +23,8 @@
     <ClInclude Include="Header.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="F:\VS2019 lib\termcolor\termcolor-master\termcolor-master\include\termcolor\termcolor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
