@@ -7,10 +7,9 @@ struct tiles
 {
 
 	char tileSymbol{ '*' };
-	char playerSymbol{};
 	int color{};
 };
-bool DropChecker(int, std::vector<std::vector<tiles>>&);
+bool animDrop(int, std::vector<std::vector<tiles>>&);
 void boardLayout(std::vector<std::vector<tiles>>);
 bool dropSlot(int, std::vector<std::vector<tiles>>);
 
@@ -42,14 +41,6 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>> Aboard) {
 
 	int slot{};
 	
-	if (turn % 2 == 0) {
-		Aboard[0][1].playerSymbol = 'x';
-	}
-	else
-	{
-		Aboard[0][1].playerSymbol = '0';
-	}
-	
 		while (true)
 		{
 			
@@ -61,7 +52,7 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>> Aboard) {
 
 				if (slot == i)
 				{
-					std::cout << "(" << Aboard[0][1].playerSymbol << ")";
+					std::cout << "(" << 'x' << ")";
 
 				}
 				else
@@ -103,7 +94,7 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>> Aboard) {
 					break;
 
 				case ' ':
-					DropChecker(slot, Aboard);
+					animDrop(slot, Aboard);
 					turn++;
 
 					break;
@@ -120,11 +111,8 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>> Aboard) {
 void boardLayout(std::vector<std::vector<tiles>> board) {
 
 	
-	
-
-	
   	for (int column = board.size() - 1; column >= 0; column--)
-	
+		
 	{
 
 		
@@ -145,20 +133,57 @@ void boardLayout(std::vector<std::vector<tiles>> board) {
 	std::cout << turn;
 }
 
-bool DropChecker(int slotdrop,std::vector<std::vector<tiles>>& animboard) {
+bool animDrop(int slotdrop,std::vector<std::vector<tiles>>& animboard) {
 
-	system("cls");
 	
-	for (size_t i = 0; i < animboard[0].size(); i++)
+	
+	
+
+	for (int i = animboard.size() - 1; i >= 0; i--)
 	{
-		if (animboard[slotdrop][i].tileSymbol == '*')
-			animboard[slotdrop][i].tileSymbol = animboard[0][1].playerSymbol;
+		if (animboard[i][slotdrop].tileSymbol == 'x')
+		{
+			i++;
+			animboard[i][slotdrop].tileSymbol = 'x';
+
+			break;
+		}
+		if (animboard[i][slotdrop].tileSymbol == '*' )
+		{
+			
+			animboard[i][slotdrop].tileSymbol = 'x';
+			
+			
+		}
+		if (i >= 1) {
+			animboard[i][slotdrop].tileSymbol = 'x';
+			boardLayout(animboard);
+			Sleep(200);
+			animboard[i][slotdrop].tileSymbol = '*';
+			system("cls");
+		}
 		
+		
+	
 	}
-	return false;
-}
+	
+
+	
+	return 0;
+	}
+	
+
+	
+
 	
 	
 
 
 	
+//for (size_t i = 0; i < animboard[0].size(); i++)
+//{
+//	if (animboard[slotdrop][i].tileSymbol == '*')
+//		animboard[slotdrop][i].tileSymbol = animboard[0][1].playerSymbol;
+//
+//}
+//return false;
