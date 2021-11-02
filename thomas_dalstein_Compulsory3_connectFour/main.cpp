@@ -79,7 +79,7 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>>aboard) {
 				case ' ':
 					
 					animDrop(k, aboard);
-					turn++;
+			turn++;
 
 					break;
 
@@ -93,25 +93,73 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>>aboard) {
 		
 }
 
-bool winChecker(std::vector<std::vector<tiles>> &animboardChecker)
+bool winChecker(std::vector<std::vector<tiles>>& animboardChecker)
 {
 	inaRow = 0;
 	int row = x;
 	int column = y;
-	
-	
-	
 
- 		for (size_t i = column; i < animboardChecker.size();)
+
+
+
+	for (size_t i = column; i < animboardChecker.size();)
+	{
+		if (animboardChecker[row][i].tileSymbol == playerSymbol) {
+			inaRow++;
+			i--;
+			std::cout << inaRow << std::endl;
+			if (inaRow == 4)
+			{
+				std::cout << "easy win katka blyat";
+
+			}
+		}
+		else
 		{
-			if (animboardChecker[row][i].tileSymbol == playerSymbol) {
+			break;
+		}
+	}
+	inaRow = 0;
+	for (size_t j = row; j < animboardChecker[0].size();) {
+
+		if (animboardChecker[j][column].tileSymbol == playerSymbol) {
+			inaRow++;
+			j--;
+			std::cout << inaRow << std::endl;
+			if (inaRow == 4)
+			{
+				std::cout << "easy win upppppppppp";
+
+			}
+
+
+		}
+		else
+		{
+			break;
+		}
+	}
+	inaRow = 0;
+	if (row >= 2) {
+		for (size_t i = column; i < animboardChecker.size();)
+		{
+			if (animboardChecker[row][column].tileSymbol == playerSymbol) {
 				inaRow++;
-				i--;
-				std::cout << inaRow;
-				if (inaRow == 4)
+				column--;
+				row--;
+				if (row < 0 || row >= animboardChecker.size()) {
+					// handle edge in x direction
+					break;
+				}
+				if (column < 0 || column >= animboardChecker[0].size()) {
+					// handle edge in y direction
+					break;
+				}
+
+				std::cout << inaRow << std::endl;
+				if (inaRow == 3)
 				{
-					std::cout << "easy win katka blyat";
-					
+					std::cout << "easy win skraaaaaaaaaaaaaaaaa";
 				}
 			}
 			else
@@ -119,27 +167,38 @@ bool winChecker(std::vector<std::vector<tiles>> &animboardChecker)
 				break;
 			}
 		}
-		inaRow = 0;
-		for (size_t j = row; j < animboardChecker[0].size();) {
-
-			if (animboardChecker[j][column].tileSymbol == playerSymbol) {
+	}
+	inaRow = 0;
+     row = x;
+     column = y;
+	if (row > 2) {
+		for (size_t i = column; i < animboardChecker.size();)
+		{
+			if (animboardChecker[row][column].tileSymbol == playerSymbol) {
 				inaRow++;
-				j--;
-				std::cout << inaRow;
-				if (inaRow == 4)
-				{
-					std::cout << "easy win upppppppppp";
-
+				column++;
+				row++;
+				if (row < 0 || row >= animboardChecker.size()) {
+					// handle edge in x direction
+					break;
 				}
-				
+				if (column < 0 || column >= animboardChecker[0].size()) {
+					// handle edge in y direction
+					break;
+				}
 
+				std::cout << inaRow << std::endl;
+				if (inaRow == 3)
+				{
+					std::cout << "easy win skruuuuuuuuuuuuu";
+				}
 			}
 			else
 			{
 				break;
 			}
 		}
-		
+	}
 
 		
 			
