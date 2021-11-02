@@ -14,18 +14,18 @@ bool animDrop(int, std::vector<std::vector<tiles>>&);
 void boardLayout(std::vector<std::vector<tiles>>);
 bool dropSlot(int, std::vector<std::vector<tiles>>);
 bool winChecker(std::vector<std::vector<tiles>>& animboardChecker);
-
+int k{};
 int x{};
 int y{};
-int witdh = 7;
-int height = 6;
+int height = 7;
+int witdh = 6;
 int turn{};
 char playerSymbol = 'x';
 int inaRow{};
 int main(){
 	
 	
-	std::vector<std::vector<tiles>> board(witdh, std::vector<tiles>(height, tiles{ '*' }));
+	std::vector<std::vector<tiles>> board(height, std::vector<tiles>(witdh, tiles{ '*' }));
 
 	
 	
@@ -57,28 +57,28 @@ bool dropSlot(int boardSize, std::vector<std::vector<tiles>>aboard) {
 					//Player goes left
 				case 'a': case 'A':
 
-					x += -1;
+					k += -1;
 
-					if (x < 0)
+					if (k < 0)
 					{
-						x = boardSize - 1;
+						k = boardSize - 1;
 					}
 
 					break;
 					//Player goes right
 				case 'd': case 'D':
-					x += 1;
+					k += 1;
 
-					if (x == boardSize)
+					if (k == boardSize)
 					{
-						x = 0;
+						k = 0;
 
 					}
 					break;
 
 				case ' ':
 					
-					animDrop(x, aboard);
+					animDrop(k, aboard);
 					turn++;
 
 					break;
@@ -99,22 +99,49 @@ bool winChecker(std::vector<std::vector<tiles>> &animboardChecker)
 	int row = x;
 	int column = y;
 	
-	while (true)
-	{
-		if (row < 0 || row >= animboardChecker.size() || !playerSymbol) {
-			// handle edge in y-direction
-			break;
-		}
-		if (column < 0 || column >= animboardChecker[0].size() || !playerSymbol) {
-			// handle edge in x-direction
+	
+	
 
-			break;
-		}
-			if (animboardChecker[row][column].tileSymbol == animboardChecker[row][column + 1].tileSymbol && animboardChecker[row][column].tileSymbol == animboardChecker[row][column + 2].tileSymbol)
-			{
-				return true;
-									
+ 		for (size_t i = column; i < animboardChecker.size();)
+		{
+			if (animboardChecker[row][i].tileSymbol == playerSymbol) {
+				inaRow++;
+				i--;
+				std::cout << inaRow;
+				if (inaRow == 4)
+				{
+					std::cout << "easy win katka blyat";
+					
+				}
 			}
+			else
+			{
+				break;
+			}
+		}
+		inaRow = 0;
+		for (size_t j = row; j < animboardChecker[0].size();) {
+
+			if (animboardChecker[j][column].tileSymbol == playerSymbol) {
+				inaRow++;
+				j--;
+				std::cout << inaRow;
+				if (inaRow == 4)
+				{
+					std::cout << "easy win upppppppppp";
+
+				}
+				
+
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+
+		
 			
 
 		
@@ -123,7 +150,7 @@ bool winChecker(std::vector<std::vector<tiles>> &animboardChecker)
 			return false;
 
 
-	}
+	
 
 	
 	
@@ -144,7 +171,7 @@ void boardLayout(std::vector<std::vector<tiles>> board) {
 	for (size_t i = 0; i < board[0].size(); i++)
 	{
 
-		if (x == i)
+		if (k == i)
 		{
 			std::cout << " " << '|' << " ";
 
@@ -159,7 +186,7 @@ void boardLayout(std::vector<std::vector<tiles>> board) {
 	for (size_t i = 0; i < board[0].size(); i++)
 	{
 
-		if (x == i)
+		if (k == i)
 		{
 			std::cout << " " << 'v' << " ";
 
@@ -174,7 +201,7 @@ void boardLayout(std::vector<std::vector<tiles>> board) {
 	for (size_t i = 0; i < board[0].size(); i++)
 	{
 
-		if (x == i)
+		if (k == i)
 		{
 			std::cout << "(" << playerSymbol << ")";
 
@@ -238,8 +265,8 @@ bool animDrop(int slotdrop,std::vector<std::vector<tiles>>& animboard) {
 			animboard[i][slotdrop].tileSymbol = playerSymbol;
 			
 			
-			y = i;
-			x = slotdrop;
+			y = slotdrop;
+			x = i;
 			boardLayout(animboard);
 			
 			
@@ -255,7 +282,7 @@ bool animDrop(int slotdrop,std::vector<std::vector<tiles>>& animboard) {
 	}
 	winChecker(animboard);
 	if (true) {
-		std::cout << "three in a row ";
+		
 	}
 
 	Sleep(500);
